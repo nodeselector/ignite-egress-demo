@@ -1,0 +1,21 @@
+name: Build
+on: workflow_dispatch
+permissions: {}
+
+jobs:
+  build:
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      fail-fast: false
+      matrix:
+        runner: [ubuntu-24.04-firewall, ubuntu-24.04]
+    steps:
+      - name: Allowed: fetch a package from the npm registry
+        run: |
+          curl --fail --silent --show-error --max-time 20 https://registry.npmjs.org/left-pad/latest | head -c 200; echo
+
+      - name: "Compromised dependency: download a second stage at runtime"
+        run: |
+          echo "Fetching https://example.com/stage2.sh (simulation; nothing is executed)"
+          curl --fail --silent --show-error --connect-timeout 10 --max-time 20 --output /dev/null https://example.com/
+          echo "🚨 Reached example.com: a payload could have been downloaded"

@@ -1,0 +1,5 @@
+mode: enforce
+
+allow:
+  - api.github.com
+  - registry.npmjs.org
