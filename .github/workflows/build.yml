@@ -10,7 +10,7 @@ jobs:
       matrix:
         runner: [ubuntu-24.04-firewall, ubuntu-24.04]
     steps:
-      - name: Allowed: fetch a package from the npm registry
+      - name: "Allowed: fetch a package from the npm registry"
         run: |
           curl --fail --silent --show-error --max-time 20 https://registry.npmjs.org/left-pad/latest | head -c 200; echo
 
